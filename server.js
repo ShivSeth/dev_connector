@@ -5,6 +5,8 @@ const path = require("path");
 
 connectDB();
 
+//Init Middleware
+app.use(express.json({ extended: false }));
 const PORT = process.env.PORT || 5000;
 
 app.get("/", (req, res) => {

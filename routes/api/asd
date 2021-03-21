@@ -2,14 +2,14 @@ const express = require("express");
 const router = express.Router();
 const { check, validationResult } = require("express-validator");
 // @route POST api/users
-// @desc Register user
+// @desc Regitser user
 // @access Public
 router.post(
   "/",
   [
     check("name", "Name is required").notEmpty(),
     check("email", "Please include a valid email").isEmail(),
-    check("password", "Please enter a password with 6 or more chars").isLength({
+    check("password", "please enter a password with 6 or more chars").isLength({
       min: 6,
     }),
   ],
@@ -18,12 +18,6 @@ router.post(
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-
-    //See if the user Exists
-    //Get users gravatar
-    // Encrypt the password
-    //json web token
-
     res.send("User Route");
   }
 );
