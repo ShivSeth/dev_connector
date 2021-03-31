@@ -3,6 +3,7 @@ const router = express.Router();
 const auth = require("../../middleware/auth");
 const Profile = require("../../modals/Profile");
 const User = require("../../modals/User");
+const Post = require("../../modals/Post");
 const config = require("config");
 const request = require("request");
 const { check, validationResult } = require("express-validator");
@@ -36,7 +37,7 @@ router.post(
   [
     auth,
     [
-      check("status", "Status is required").notEmpty(),
+      check("status", "status is required").notEmpty(),
       check("skills", "skills is required").notEmpty(),
     ],
   ],
@@ -146,6 +147,9 @@ router.get("/user/:user_id", async (req, res) => {
 router.delete("/", auth, async (req, res) => {
   try {
     //@todo - remove users post
+
+    //Remove User Post
+    await Post.deleteMany({ user: req.user.id });
 
     //remove profile
     await Profile.findOneAndRemove({ user: req.user.id });
